@@ -17,7 +17,9 @@ public class RouletteTestImpl implements RouletteTest {
         int currentBid = 1;
         Result lastResult = Result.WIN;
 
-        for (int i = 0; i < initialBetValue.testCount(); i++) {
+        int i = 0;
+
+        while (i <= initialBetValue.testCount()) {
             if (lastResult.equals(Result.WIN))
                 currentBid = 1;
             else
@@ -29,7 +31,17 @@ public class RouletteTestImpl implements RouletteTest {
             RouletteResult result = (roulette.playRoulette(new RouletteBet(currentBid, initialBetValue.number(), bet.getBetColor())));
             bet.setCurrentBalance(bet.getCurrentBalance() - currentBid + result.prize());
 
+            lastResult = result.result();
             results.add(result);
+
+            if (i == initialBetValue.testCount()) {
+                if (lastResult.equals(Result.LOSE)) {
+                    i--;
+                }
+            }
+            if (i <= initialBetValue.testCount()) {
+                i++;
+            }
         }
 
         return new TestResults(this.calculateWins(results), this.calculateLoses(results), bet.getCurrentBalance());

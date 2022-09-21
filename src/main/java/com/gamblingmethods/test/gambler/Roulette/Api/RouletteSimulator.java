@@ -10,7 +10,7 @@ import java.util.Random;
 public class RouletteSimulator {
     private int generateNumber() {
         Random random = new Random();
-        return random.nextInt(37);
+        return random.nextInt(36);
     }
 
     private Color getColor(int number) {
